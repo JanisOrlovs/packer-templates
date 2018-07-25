@@ -62,7 +62,41 @@
       ["modifyvm", "{{.Name}}", "--memory", "{{user `memory`}}"],
       ["modifyvm", "{{.Name}}", "--cpus", "{{user `cpus`}}"]
     ]
-  }, {
+  },
+    {
+      "type": "hyperv-iso",
+      "vm_name":"{{user `vm_name`}}",
+      "disk_size": "{{user `disk_size`}}",
+      "guest_additions_mode": "disable",
+      "iso_url": "{{user `mirror`}}/17.10/ubuntu-17.10.1-server-amd64.iso",
+      "iso_checksum": "{{user `iso_checksum`}}",
+      "iso_checksum_type": "{{user `iso_checksum_type`}}",
+      "ssh_username": "packer",
+      "ssh_password": "packer",
+      "ram_size": "{{user `memory`}}",
+      "cpu": "{{user `cpus`}}",
+      "http_directory": "http",
+      "http_port_min": 30001,
+      "http_port_max": 30101,
+      "generation": 1,
+      "enable_secure_boot": false,
+      "switch_name":"LAN",
+      "boot_command": [
+        "<esc><wait>",
+        "<esc><wait>",
+        "<enter><wait>",
+        "/install/vmlinuz ",
+        "initrd=/install/initrd.gz ",
+        "net.ifnames=0 ",
+        "auto-install/enable=true ",
+        "debconf/priority=critical ",
+        "preseed/url=http://{{.HTTPIP}}:{{.HTTPPort}}/ubuntu-17.10/preseed.cfg ",
+        "<enter>"
+      ],
+      "headless": "{{user `headless`}}",
+      "shutdown_command": "sudo systemctl poweroff"
+    },
+    {
     "type": "vmware-iso",
     "guest_os_type": "ubuntu-64",
     "iso_url": "{{user `mirror`}}/17.10/ubuntu-17.10.1-server-amd64.iso",

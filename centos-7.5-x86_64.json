@@ -50,7 +50,35 @@
       ["modifyvm", "{{.Name}}", "--memory", "{{user `memory`}}"],
       ["modifyvm", "{{.Name}}", "--cpus", "{{user `cpus`}}"]
     ]
-  }, {
+  },
+    {
+      "type": "hyperv-iso",
+      "vm_name":"{{user `vm_name`}}",
+      "disk_size": "{{user `disk_size`}}",
+      "guest_additions_mode": "disable",
+      "iso_url": "{{user `mirror`}}/7/isos/x86_64/CentOS-7-x86_64-NetInstall-1804.iso",
+      "iso_checksum": "{{user `iso_checksum`}}",
+      "iso_checksum_type": "{{user `iso_checksum_type`}}",
+      "ssh_username": "packer",
+      "ssh_password": "packer",
+      "ram_size": "{{user `memory`}}",
+      "cpu": "{{user `cpus`}}",
+      "generation": 1,
+      "http_directory": "http",
+      "http_port_min": 30001,
+      "http_port_max": 30101,
+      "enable_secure_boot": false,
+      "switch_name":"LAN",
+      "boot_command": [
+        "<esc>",
+        "<wait>",
+        "linux inst.ks=http://{{.HTTPIP}}:{{.HTTPPort}}/centos-7.5/anaconda-ks.cfg biosdevname=0 net.ifnames=0",
+        "<enter>"
+      ],
+      "headless": "{{user `headless`}}",
+      "shutdown_command": "sudo systemctl poweroff"
+    },
+    {
     "type": "vmware-iso",
     "guest_os_type": "centos-64",
     "iso_url": "./CentOS-7-x86_64-NetInstall-1804.iso",
