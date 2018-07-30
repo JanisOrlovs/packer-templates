@@ -44,8 +44,7 @@
   "post-processors": [{
     "type": "vagrant",
     "compression_level": 0,
-    "output": "centos-7.5-x86_64-{{.Provider}}.ovf",
-    }
+    "output": "centos-7.5-x86_64-{{.Provider}}.ovf"
   }],
   "variables": {
     "compression_level": "6",
