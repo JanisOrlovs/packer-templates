@@ -43,12 +43,8 @@
   }],
   "post-processors": [{
     "type": "vagrant",
-    "compression_level": 1,
-    output": "centos-7.5-x86_64-{{.Provider}}.ovf",
-    "override": {
-      "vmware": {
-        "compression_level": 0
-      }
+    "compression_level": 0,
+    "output": "centos-7.5-x86_64-{{.Provider}}.ovf",
     }
   }],
   "variables": {
