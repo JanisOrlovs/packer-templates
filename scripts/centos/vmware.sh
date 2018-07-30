@@ -12,4 +12,4 @@ sudo yum -y install net-tools
 sudo yum -y install make
 sudo yum -y install gcc
 sudo yum -y install kernel-devel
-sudo yum -y open-vm-tools
+sudo yum -y install open-vm-tools
