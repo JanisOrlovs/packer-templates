@@ -2,11 +2,11 @@
   "builders": [{
     "type": "vmware-iso",
     "guest_os_type": "centos-64",
-    "iso_url": "./CentOS-7-x86_64-NetInstall-1804.iso",
+    "iso_url": "http://centos.koyanet.lv/centos/7.5.1804/isos/x86_64/CentOS-7-x86_64-Minimal-1804.iso",
     "iso_checksum": "{{user `iso_checksum`}}",
     "iso_checksum_type": "{{user `iso_checksum_type`}}",
-    "output_directory": "output-centos-7.4-x86_64-{{build_type}}-",
-    "vm_name": "packer-centos-7.4-x86_64",
+    "output_directory": "output-centos-7.5-x86_64-{{build_type}}",
+    "vm_name": "packer-centos-7.5-x86_64",
     "disk_size": "{{user `disk_size`}}",
     "headless": "{{user `headless`}}",
     "http_directory": "http",
@@ -32,9 +32,7 @@
     "type": "shell",
     "scripts": [
       "scripts/centos-7.5/repo.sh",
-      "scripts/centos/virtualbox.sh",
       "scripts/centos/vmware.sh",
-      "scripts/common/vagrant.sh",
       "scripts/common/sshd.sh",
       "scripts/centos/locale.sh",
       "scripts/centos-7.5/cleanup.sh",
@@ -44,6 +42,10 @@
   "post-processors": [{
     "type": "vagrant",
     "compression_level": 0,
+    "override": {
+      "vmware": {
+        "compression_level": 0
+      }},
     "output": "centos-7.5-x86_64-{{.Provider}}.ovf"
   }],
   "variables": {
@@ -54,7 +56,6 @@
     "iso_checksum": "714acc0aefb32b7d51b515e25546835e55a90da9fb00417fbee2d03a62801efd",
     "iso_checksum_type": "sha256",
     "memory": "512",
-    "mirror": "http://mirrors.kernel.org/centos",
     "ssh_timeout": "60m"
   }
 }
